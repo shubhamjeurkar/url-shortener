@@ -7,7 +7,7 @@ const authenticationMiddleware = require('./src/middleware/authenticate');
 
 const urlRouter = require('./src/routers/url');
 const authRouter = require('./src/routers/auth');
-const { redirectToLongURL } = require("./src/controllers/url");
+const { redirectToLongURL } = require("./src/controllers/urls");
 const rateLimiter = require('express-rate-limit');
 const helmet = require('helmet');
 
