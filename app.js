@@ -10,6 +10,11 @@ const authRouter = require('./src/routers/auth');
 const { redirectToLongURL } = require("./src/controllers/urls");
 const rateLimiter = require('express-rate-limit');
 const helmet = require('helmet');
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 
 const PORT = process.env.PORT;
@@ -27,8 +32,8 @@ app.use(cors());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", authenticationMiddleware, urlRouter);
 app.get("/:id", redirectToLongURL);
-app.get("/api/health-check", (req, res) => {
- res.status(200).send("Get Short Urls ");
+app.get("/", (req, res) => {
+ res.status(200).redirect("/api-docs");
 });
 
 const start = async () => {

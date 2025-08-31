@@ -1,0 +1,217 @@
+openapi: 3.0.0
+info:
+  title: URL-Shortener
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://url-shortener-9emg.onrender.com
+  variables: {}
+paths:
+  /api/v1/urls:
+    post:
+      tags:
+      - URLS
+      summary: Create Short URL
+      operationId: CreateShortURL
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateShortURLRequest'
+              - example:
+                  longURL: https://eu-north-1.signin.aws.amazon.com/oauth?client_id=arn%3Aaws%3Asignin%3A%3A%3Aconsole%2Fcanvas&code_challenge=Kp5Yxme4QGRoCHi2HsNuG7Wr9klEtTlvupUIIB7Zai4&code_challenge_method=SHA-256&response_type=code&redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fconsole%2Fhome%3FhashArgs%3D%2523%26isauthcode%3Dtrue%26nc2%3Dh_uta_mc%26state%3DhashArgsFromTB_eu-north-1_5d75c4fb61453ab9
+            example:
+              longURL: https://eu-north-1.signin.aws.amazon.com/oauth?client_id=arn%3Aaws%3Asignin%3A%3A%3Aconsole%2Fcanvas&code_challenge=Kp5Yxme4QGRoCHi2HsNuG7Wr9klEtTlvupUIIB7Zai4&code_challenge_method=SHA-256&response_type=code&redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fconsole%2Fhome%3FhashArgs%3D%2523%26isauthcode%3Dtrue%26nc2%3Dh_uta_mc%26state%3DhashArgsFromTB_eu-north-1_5d75c4fb61453ab9
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - URLS
+      summary: Get All Short URL's
+      operationId: GetAllShortURL's
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /api/v1/urls/{code}:
+    get:
+      parameters:
+        - in: path
+          name: code # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: The short code
+      tags:
+      - URLS
+      summary: Get single short URL
+      operationId: GetsingleshortURL
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      parameters:
+          - in: path
+            name: code # Note the name is the same as in the path
+            required: true
+            schema:
+              type: string
+              minimum: 1
+            description: The short code
+      tags:
+      - URLS
+      summary: Delete short URL
+      operationId: DeleteshortURL
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /{code}:
+    get:
+      parameters:
+        - in: path
+          name: code # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: The short code
+      tags:
+      - URLS
+      summary: Redirect URL
+      operationId: RedirectURL
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /api/v1/auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterRequest'
+              - example:
+                  name: Shubham Jeurkar
+                  email: shubham@gmail.com
+                  password: Secret
+            example:
+              name: Shubham Jeurkar
+              email: shubham@gmail.com
+              password: Secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /api/v1/auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginRequest'
+              - example:
+                  email: shubham@gmail.com
+                  password: Secret
+            example:
+              email: shubham@gmail.com
+              password: Secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    CreateShortURLRequest:
+      title: CreateShortURLRequest
+      required:
+      - longURL
+      type: object
+      properties:
+        longURL:
+          type: string
+      example:
+        longURL: https://eu-north-1.signin.aws.amazon.com/oauth?client_id=arn%3Aaws%3Asignin%3A%3A%3Aconsole%2Fcanvas&code_challenge=Kp5Yxme4QGRoCHi2HsNuG7Wr9klEtTlvupUIIB7Zai4&code_challenge_method=SHA-256&response_type=code&redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fconsole%2Fhome%3FhashArgs%3D%2523%26isauthcode%3Dtrue%26nc2%3Dh_uta_mc%26state%3DhashArgsFromTB_eu-north-1_5d75c4fb61453ab9
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Shubham Jeurkar
+        email: shubham@gmail.com
+        password: Secret
+    LoginRequest:
+      title: LoginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: shubham@gmail.com
+        password: Secret
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+- name: URLS
