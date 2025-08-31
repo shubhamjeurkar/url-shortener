@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Url = new mongoose.Schema({
+const UrlSchema = new mongoose.Schema({
  longURL: {
   type: String,
   required: [true, "Please provide long URL"],
@@ -14,7 +14,25 @@ const Url = new mongoose.Schema({
  active: {
   type: Boolean,
   default: true
+ }, 
+ ownerId: {
+  type: mongoose.Types.ObjectId,
+  ref: "User",
+  required: true
+ },
+ expiresAt: {
+  type: Date,
+  default: null
  }
 }, {timestamps: true});
 
-module.exports = mongoose.model("Url", Url);
+UrlSchema.pre('save', function(next) {
+ if( !this.expiresAt ) {
+  const now = new Date();
+  now.setDate(now.getDate() + 30);
+  this.expiresAt = now;
+ }
+ next();
+});
+
+module.exports = mongoose.model("Url", UrlSchema);
