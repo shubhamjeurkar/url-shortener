@@ -5,7 +5,7 @@ const cors = require("cors");
 const connectDB = require('./src/db/connect');
 const authenticationMiddleware = require('./src/middleware/authenticate');
 
-const urlRouter = require('./src/routers/url');
+const urlRouter = require('./src/routers/urls');
 const authRouter = require('./src/routers/auth');
 const { redirectToLongURL } = require("./src/controllers/url");
 const rateLimiter = require('express-rate-limit');
