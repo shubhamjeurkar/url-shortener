@@ -12,7 +12,7 @@ const rateLimiter = require('express-rate-limit');
 const helmet = require('helmet');
 
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.set('trust proxy', 1);
 app.use(rateLimiter({
