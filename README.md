@@ -77,5 +77,5 @@ Once the server is running, open Swagger docs at:
 ## 🧑‍💻 Author
 
 **Shubham Jeurkar**  
-- [LinkedIn](https://linkedin.com/in/your-profile)
-- [GitHub](https://github.com/your-username)
+- [LinkedIn](https://linkedin.com/in/shubham-jeurkar)
+- [GitHub](https://github.com/shubhamjeurkar)
