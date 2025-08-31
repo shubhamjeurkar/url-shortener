@@ -1,5 +1,5 @@
 const {StatusCodes} = require('http-status-codes');
-const Url = require('../models/Url');
+const Url = require('../models/URL');
 const generateCode = require('../../utils');
 
 const createShortURL = async (req, res) => {
